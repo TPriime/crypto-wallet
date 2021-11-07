@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.CryptoWallet" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.CryptoWallet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/purple_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,23 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlHighlight">@color/purple_light</item>
+    </style>
+
+    <!-- Text Field -->
+    <style name="MTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="boxBackgroundMode">none</item>
+        <item name="hintEnabled">true</item>
+        <item name="startIconTint">@color/grey_darker</item>
+        <item name="endIconTint">@color/grey</item>
+        <item name="passwordToggleTint">@color/grey</item>
+    </style>
+
+    <style name="MEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/grey_darker</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>
