@@ -4,5 +4,5 @@ enum class CardInputState {
     CardNumber,
     CardHolderName,
     Expiry,
-    CSV
+    CVV
 }

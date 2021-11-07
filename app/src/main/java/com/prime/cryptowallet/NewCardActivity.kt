@@ -5,10 +5,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.prime.cryptowallet.databinding.ActivityNewCardBinding
 
 class NewCardActivity : AppCompatActivity() {
     lateinit var binding: ActivityNewCardBinding
+    lateinit var cardInputState: CardInputState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +23,19 @@ class NewCardActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        cardInputState = CardInputState.values().first()
+
         configureUI()
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
+        return if(cardInputState == CardInputState.CardNumber) {
+            finish()
+            true
+        } else {
+            prevState()
+            false
+        }
     }
 
     private fun configureUI() {
@@ -35,6 +44,7 @@ class NewCardActivity : AppCompatActivity() {
                 cardNumber.setTextColor(resources.getColor(
                     if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
                 cardNumber.setText(if(it.isNullOrEmpty()) "**** **** **** ****" else groupStrInFours(it))
+                if(it?.length?:0 >= 16) nextState()
             }
 
             cardHolderField.onTextChanged {
@@ -47,10 +57,40 @@ class NewCardActivity : AppCompatActivity() {
                 cardExpiry.setTextColor(resources.getColor(
                     if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
                 cardExpiry.setText(if(it.isNullOrEmpty()) "VALID TILL" else it)
+                if(it?.length?:0 >= 5) nextState()
             }
         }
 
     }
+
+
+    private fun checkState() {
+        binding.apply {
+            cardNumberField.isVisible = cardInputState == CardInputState.CardNumber
+            cardHolderField.isVisible = cardInputState == CardInputState.CardHolderName
+            cardExpiryField.isVisible = cardInputState == CardInputState.Expiry
+//            cardCVVField.isVisible = cardInputState == CardInputState.CVV
+        }
+    }
+
+    private fun nextState() {
+        if(cardInputState==CardInputState.CVV) {
+            // TODO next screen
+            return
+        }
+        cardInputState = CardInputState.values()[cardInputState.ordinal + 1]
+        checkState()
+    }
+
+    private fun prevState() {
+        if(cardInputState==CardInputState.CardNumber) {
+            // TODO prev screen
+            return
+        }
+        cardInputState = CardInputState.values()[cardInputState.ordinal - 1]
+        checkState()
+    }
+
 
     private fun groupStrInFours(str: CharSequence): String {
         var newStr = ""
