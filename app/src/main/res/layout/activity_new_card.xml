@@ -86,6 +86,16 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/card_holder" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@raw/credit_card_back"
+                android:visibility="invisible"
+                android:paddingHorizontal="@dimen/spacing_medium">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
         <LinearLayout
@@ -99,7 +109,7 @@
             app:layout_constraintTop_toBottomOf="@+id/credit_card">
 
             <FrameLayout
-                android:id="@+id/frameLayout"
+                android:id="@+id/cardNumberFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_grey_border"
@@ -182,6 +192,37 @@
                         android:hint="VALID TILL"
                         android:inputType="date"
                         android:maxLength="5"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCvvFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:layout_marginBottom="@dimen/spacing_small"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MTextInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacing_small"
+                    android:paddingBottom="@dimen/spacing_medium"
+                    app:hintTextColor="@color/grey_dark">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/card_cvv_field"
+                        style="@style/MEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="CVV"
+                        android:inputType="date"
+                        android:maxLength="3"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
