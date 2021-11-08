@@ -111,7 +111,8 @@
                     android:layout_height="wrap_content"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    tools:listitem="@layout/item_credit_card" />
+                    tools:listitem="@layout/item_credit_card"
+                    />
 
             </FrameLayout>
 
@@ -161,6 +162,8 @@
         android:background="?android:attr/windowBackground"
         android:clipChildren="false"
         android:elevation="4dp"
+        app:itemIconTint="#BBB"
+        app:itemTextColor="#BBB"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

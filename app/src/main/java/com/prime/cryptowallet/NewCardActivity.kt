@@ -17,8 +17,9 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 
 import android.animation.ObjectAnimator
-
-
+import android.content.Intent
+import android.view.inputmethod.EditorInfo
+import androidx.core.view.isGone
 
 
 class NewCardActivity : AppCompatActivity() {
@@ -39,6 +40,9 @@ class NewCardActivity : AppCompatActivity() {
         cardInputState = CardInputState.values().first()
         checkState()
         configureUI()
+
+        // TODO remove
+//        startActivity(Intent(this, CongratsActivity::class.java))
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -62,6 +66,7 @@ class NewCardActivity : AppCompatActivity() {
                 cardNumber.setTextColor(resources.getColor(
                     if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
                 cardNumber.setText(if(it.isNullOrEmpty()) "**** **** **** ****" else groupStrInFours(it))
+//                cardNumberField.setText(groupStrInFours(it?:"", true))
                 if(it?.length?:0 >= 16) nextState()
             }
 
@@ -82,11 +87,35 @@ class NewCardActivity : AppCompatActivity() {
             cardCvvField.onTextChanged {
 //                cardCvv.setTextColor(resources.getColor(
 //                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
-//                cardCvv.setText(if(it.isNullOrEmpty()) "VALID TILL" else it)
-//                if(it?.length?:0 >= 3) nextState()
+                cardCvv.setText(if(it.isNullOrEmpty()) "CVV" else it)
+                if(it?.length?:0 >= 3) nextState()
             }
         }
 
+        // set fields to respond to Enter key
+        binding.apply {
+            listOf(cardNumberField, cardHolderField, cardExpiryField, cardCvvField).forEach {
+                it.setOnEditorActionListener { textView, i, keyEvent ->
+                    onEnterKeyPressed(i)
+                }
+            }
+        }
+
+        // final frame config
+        binding.apply {
+            addCardButton.setOnClickListener {
+                startActivity(Intent(this@NewCardActivity, CongratsActivity::class.java))
+                finish()
+            }
+            cancelButton.setOnClickListener { finish() }
+        }
+    }
+
+    private fun onEnterKeyPressed(actionId: Int): Boolean {
+        return if (actionId == EditorInfo.IME_ACTION_DONE) {
+            nextState()
+            true
+        } else false
     }
 
 
@@ -96,11 +125,13 @@ class NewCardActivity : AppCompatActivity() {
             cardHolderFrame.isVisible = cardInputState == CardInputState.CardHolderName
             cardExpiryFrame.isVisible = cardInputState == CardInputState.Expiry
             cardCvvFrame.isVisible = cardInputState == CardInputState.CVV
+            finalFrame.isVisible = cardInputState == CardInputState.Finish
         }
     }
 
     private fun nextState() {
-        if(cardInputState==CardInputState.Expiry || true) flip()
+        if(cardInputState==CardInputState.Expiry) flip()
+        else if(cardInputState==CardInputState.CVV) reverseFlip()
         else if(cardInputState==CardInputState.values().last()) {
             // TODO next screen
             return
@@ -115,7 +146,8 @@ class NewCardActivity : AppCompatActivity() {
             return
         }
         cardInputState = CardInputState.values()[cardInputState.ordinal - 1]
-        if(cardInputState==CardInputState.Expiry || true) reverseFlip()
+        if(cardInputState==CardInputState.CVV) flip()
+        if(cardInputState==CardInputState.Expiry) reverseFlip()
         checkState()
     }
 
@@ -153,10 +185,11 @@ class NewCardActivity : AppCompatActivity() {
         oa1.start()
     }
 
-    private fun groupStrInFours(str: CharSequence): String {
+    private fun groupStrInFours(str: CharSequence, doubleSpace: Boolean = false): String {
         var newStr = ""
+        var space = if(doubleSpace) "  " else " "
         str.forEachIndexed { index, c ->
-            newStr += if(index%4==0 && index>0) "  $c" else c
+            newStr += if(index%4==0 && index>0) "$space$c" else c
         }
         return newStr
     }

@@ -3,6 +3,7 @@ package com.prime.cryptowallet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.core.view.ViewCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.prime.cryptowallet.databinding.ActivityMainBinding
@@ -22,8 +23,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, NewCardActivity::class.java))
         }
 
+        val rightToLeftAnim = AnimationUtils.loadAnimation(this, R.anim.anim_right_to_left)
+        binding.featuredItemsViewPager.startAnimation(rightToLeftAnim)
+
+        val fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in)
+        binding.rippleBackground.startAnimation(fadeInAnim)
+
         // TODO remove
-        startActivity(Intent(this, NewCardActivity::class.java))
+//        startActivity(Intent(this, NewCardActivity::class.java))
     }
 
     private fun configureCreditCardItemsLayout(featuredItemsViewPager: ViewPager2) {
