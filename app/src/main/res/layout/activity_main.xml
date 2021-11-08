@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    tools:listitem="@layout/item_credit_card"
+                    tools:listitem="@layout/item_visa_card"
                     />
 
             </FrameLayout>

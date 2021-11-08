@@ -33,7 +33,7 @@
         <FrameLayout
             android:id="@+id/credit_card"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="160dp"
             android:layout_marginHorizontal="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_large"
             android:background="@drawable/bg_circular_transparent_r10"
@@ -46,14 +46,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@raw/visa_card"
-                android:paddingStart="@dimen/spacing_medium">
+                android:paddingHorizontal="@dimen/spacing_medium">
 
                 <TextView
                     android:id="@+id/card_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_2xlarge"
-                    android:layout_marginStart="15dp"
                     android:text="**** **** **** ****"
                     android:textColor="@color/grey_light"
                     android:textSize="18sp"
@@ -61,75 +60,61 @@
                     app:layout_constraintStart_toStartOf="@+id/card_holder"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/card_holder"
-                    style="@style/MTextInputStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_medium"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:layout_marginEnd="10dp"
-                    android:textColorHint="@color/grey_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/card_expiry"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/MEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="CARDHOLDER NAME"
-                        android:inputType="textNoSuggestions"
-                        android:focusable="false"
-                        android:textColor="@color/white_80"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/card_expiry"
-                    style="@style/MTextInputStyle"
-                    android:layout_width="105dp"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/grey_light"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/card_number">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/MEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="VALID UNTIL"
-                        android:textColor="@color/white_80"
-                        android:textSize="13sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/card_back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@raw/credit_card_back"
-                android:paddingHorizontal="@dimen/spacing_medium"
-                android:visibility="invisible">
-
                 <TextView
-                    android:id="@+id/card_cvv"
+                    android:id="@+id/card_holder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="CVV"
-                    android:textColor="@color/white"
+                    android:layout_marginStart="@dimen/spacing_large"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:text="CARDHOLDER NAME"
+                    android:textColor="@color/grey_light"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/card_expiry"
+                    android:layout_width="39dp"
+                    android:layout_height="21dp"
+                    android:layout_marginEnd="@dimen/spacing_2xlarge"
+                    android:text="11/23"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/card_holder"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteY="80dp" />
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/card_holder"
+                    app:layout_constraintTop_toTopOf="@+id/card_holder" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@raw/credit_card_back"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    android:visibility="invisible"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="1dp">
+
+                    <TextView
+                        android:id="@+id/card_cvv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="CVV"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteY="80dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </FrameLayout>
 
         <LinearLayout
@@ -222,8 +207,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="VALID TILL"
-                        android:inputType="number"
-                        android:maxLength="4"
+                        android:inputType="date"
+                        android:maxLength="5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>

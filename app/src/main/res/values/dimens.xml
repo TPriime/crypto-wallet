@@ -10,4 +10,7 @@
     <dimen name="spacing_2xlarge">72dp</dimen>
     <dimen name="spacing_3xlarge">128dp</dimen>
     <dimen name="default_corner_radius">10dp</dimen>
+
+    <dimen name="pageMargin">8dp</dimen>
+    <dimen name="offset">8dp</dimen>
 </resources>

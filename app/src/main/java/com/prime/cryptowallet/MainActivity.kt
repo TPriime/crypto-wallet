@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configureCreditCardItemsLayout(featuredItemsViewPager: ViewPager2) {
-        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.spacing_large)
-        val offsetPx = 45//resources.getDimensionPixelOffset(R.dimen.spacing_large)
+        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) * 4
+        val offsetPx = - resources.getDimensionPixelOffset(R.dimen.offset) / 2
         with(featuredItemsViewPager) {
             offscreenPageLimit = 3
             setPageTransformer { page, position ->

@@ -12,11 +12,15 @@ class CreditCardItemAdapter(private val featuredItems: List<String>) :
     override fun getItemCount(): Int = featuredItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return FeaturedItemHolder(parent)
+        return FeaturedItemHolder(parent, viewType!=99)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as FeaturedItemHolder).bind(featuredItems[position])
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position==1) 99 else super.getItemViewType(position)
     }
 
     /*fun setItem(list: List<String>) {
@@ -28,9 +32,9 @@ class CreditCardItemAdapter(private val featuredItems: List<String>) :
      * Fragment to hold a featured item
      */
     class FeaturedItemHolder(v: View): RecyclerView.ViewHolder(v) {
-        constructor(parent: ViewGroup) :
+        constructor(parent: ViewGroup, isVisa: Boolean = true) :
                 this(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_credit_card, parent, false))
+                    .inflate(if(isVisa) R.layout.item_visa_card else R.layout.item_master_card, parent, false))
 
         fun bind(urls: String) {
             // TODO bind image and action urls to view

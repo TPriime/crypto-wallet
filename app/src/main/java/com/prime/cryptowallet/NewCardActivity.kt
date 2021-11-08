@@ -64,31 +64,24 @@ class NewCardActivity : AppCompatActivity() {
         binding.apply {
             cardNumberField.onTextChanged {
                 cardNumber.setTextColor(resources.getColor(
-                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
+                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white_80))
                 cardNumber.setText(if(it.isNullOrEmpty()) "**** **** **** ****" else groupStrInFours(it))
-//                cardNumberField.setText(groupStrInFours(it?:"", true))
-                if(it?.length?:0 >= 16) nextState()
+//                if(it?.length?:0 >= 16) nextState()
             }
 
             cardHolderField.onTextChanged {
-                cardHolder.setTextColor(resources.getColor(
-                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
-                cardHolder.setText(if(it.isNullOrEmpty()) "CARDHOLDER NAME" else it.toString().toUpperCase())
-                if(it?.length?:0 >= 17) nextState()
+                cardHolder.editText?.setText(if(it.isNullOrEmpty()) "" else it.toString().toUpperCase())
+//                if(it?.length?:0 >= 17) nextState()
             }
 
             cardExpiryField.onTextChanged {
-                cardExpiry.setTextColor(resources.getColor(
-                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
-                cardExpiry.setText(if(it.isNullOrEmpty()) "VALID TILL" else it)
-                if(it?.length?:0 >= 5) nextState()
+                cardExpiry.editText?.setText(if(it.isNullOrEmpty()) "" else addSlash(it))
+//                if(it?.length?:0 >= 5) nextState()
             }
 
             cardCvvField.onTextChanged {
-//                cardCvv.setTextColor(resources.getColor(
-//                    if(it.isNullOrEmpty()) R.color.grey_light else R.color.white))
                 cardCvv.setText(if(it.isNullOrEmpty()) "CVV" else it)
-                if(it?.length?:0 >= 3) nextState()
+//                if(it?.length?:0 >= 3) nextState()
             }
         }
 
@@ -126,6 +119,10 @@ class NewCardActivity : AppCompatActivity() {
             cardExpiryFrame.isVisible = cardInputState == CardInputState.Expiry
             cardCvvFrame.isVisible = cardInputState == CardInputState.CVV
             finalFrame.isVisible = cardInputState == CardInputState.Finish
+
+            listOf(cardNumberFrame, cardHolderFrame, cardExpiryFrame, cardCvvFrame, finalFrame).forEach {
+                if(it.isVisible) it.requestFocus()
+            }
         }
     }
 
@@ -192,6 +189,16 @@ class NewCardActivity : AppCompatActivity() {
             newStr += if(index%4==0 && index>0) "$space$c" else c
         }
         return newStr
+    }
+
+    private fun addSlash(str: CharSequence): String {
+        var newStr = str
+        if(str.length>2) {
+            val chars1 = str.subSequence(0, 2)
+            val chars2 = str.subSequence(2, str.length)
+            newStr = "$chars1/$chars2"
+        }
+        return newStr.toString()
     }
 }
 
