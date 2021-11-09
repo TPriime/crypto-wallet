@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoWallet">
         <activity android:name=".CongratsActivity"></activity>
-        <activity android:name=".NewCardActivity" />
+        <activity android:name=".NewCardActivity" android:theme="@style/Theme.CryptoWallet" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

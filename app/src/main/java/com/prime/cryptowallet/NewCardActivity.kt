@@ -17,8 +17,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isGone
 
 
@@ -122,6 +124,11 @@ class NewCardActivity : AppCompatActivity() {
 
             listOf(cardNumberFrame, cardHolderFrame, cardExpiryFrame, cardCvvFrame, finalFrame).forEach {
                 if(it.isVisible) it.requestFocus()
+            }
+
+            if(cardInputState == CardInputState.values().last()) {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
             }
         }
     }
